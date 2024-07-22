@@ -14,6 +14,11 @@ The GUNI Food Hub isn’t just about food; it’s about enhancing convenience an
 
 <hr>
 
+## Demo 📹
+
+Watch a demo of the project in action:
+
+[![Watch the video](https://github.com/Pratham198/GUNI-Food-Hub/blob/master/public/images/Thumbnail_Image.png)](https://drive.google.com/file/d/1n26XM-Cn5tTW2Xdq9wFSwG4Ytyce0RQk/view?usp=sharing)
 
 
 <hr>
