@@ -3,7 +3,7 @@
 <h1>GUNI Food Hub 🍽️</h1>
 <br>
 
-The GUNI Food Hub project is a game-changer at Ganpat University! 🚀 It’s a cutting-edge solution transforming the way people experience dining on campus. With the latest technology, we’re making food ordering a breeze for everyone—students and staff alike.
+The GUNI Food Hub project is a game-changer at Ganpat University! 🚀 It’s a cutting-edge solution transforming the way people experience dining on campus. With the latest technology, we’re making food ordering a breeze for everyone students and staff alike.
 
 Gone are the days of long queues and frustrating waits. 🙌 Our platform allows you to order food from the university cafeteria with just a few clicks. Track your order in real-time and enjoy a hassle-free dining experience! 📲
 
