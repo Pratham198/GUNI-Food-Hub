@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+
+<style>
+@charset "UTF-8";
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --first-color: hsl(30, 100%, 50%);
+  --second-color: hsl(30, 100%, 35%);
+  --title-color: hsl(0, 0%, 100%);
+  --text-color: hsl(0, 0%, 100%);
+  --body-color: #111;
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --h2-font-size: 1.75rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--body-color);
+  font-family: var(--body-font);
+  color: var(--text-color);
+}
+
+input,
+button {
+  font-family: var(--body-font);
+  border: none;
+  outline: none;
+}
+
+img {
+  max-width: auto;
+  height: auto;
+}
+
+/*=============== SIGNUP FORM ===============*/
+.signup__content, .signup__form, .signup__inputs {
+  display: grid;
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+}
+
+.signup__img {
+  position: absolute;
+  width: 100%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+
+}
+
+.signup__content {
+  position:relative;
+  z-index: 1; /* Ensure the content is on top of the image */
+  display: flex;
+  right: 235px;
+  align-items: center;
+  justify-content: right;
+  align-items: center;
+  top: 60px;
+
+}
+
+.logo {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 380px; /* Adjust as needed */
+    z-index: 1; /* Ensure the logo is above the background image */
+    width: 150px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.signup__form {
+  position: relative;
+  background-color: #333;
+  border: 2px solid #444;
+  margin-inline: 1.5rem;
+  row-gap: 1.25rem;
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 0.5rem; /* Reduced border radius */
+  width: 400px;
+}
+
+.signup__title {
+  color: var(--title-color);
+  font-size: var(--h2-font-size);
+  margin-bottom: 0.5rem;
+}
+
+.signup__title span {
+  color: var(--first-color);
+}
+
+.signup__description {
+  font-size: var(--small-font-size);
+}
+
+.signup__inputs {
+
+  row-gap: 0.75rem;
+  margin-bottom: 0.5rem;
+ 
+}
+
+.signup__label {
+  display: block;
+  color: var(--title-color);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.25rem;
+}
+
+.signup__input {
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 6px;
+  border: 2px solid var(--text-color);
+  background-color: #444;
+  color: var(--title-color);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  transition: border 0.4s;
+}
+
+.signup__input::placeholder {
+  color: var(--text-color);
+}
+
+.signup__input:focus,
+.signup__input:valid {
+  border: 2px solid var(--first-color);
+}
+
+.signup__box {
+  position: relative;
+}
+
+.signup__box .signup__input {
+  padding-right: 36px;
+}
+
+.signup__eye {
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  right: 0.75rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.signup__check {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+
+.signup__check-input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text-color);
+  background-color: #444;
+  border-radius: 0.25rem;
+}
+
+.signup__check-input:checked {
+  background: var(--first-color);
+}
+
+.signup__check-input:checked::before {
+  content: "✔";
+  display: block;
+  color: #fff;
+  font-size: 0.75rem;
+  transform: translate(1.5px, -2.5px);
+}
+
+.signup__check-label {
+  font-size: var(--small-font-size);
+}
+
+.signup__button {
+  width: 100%;
+  padding: 14px 2rem;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--first-color), var(--second-color));
+  color: #fff;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  box-shadow: 0 6px 24px hsla(30, 100%, 35%, 0.5);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.signup__login-link {
+  text-align: center;
+  font-size: var(--smaller-font-size);
+  margin-top: 1rem;
+}
+a {
+  color: rgb(239, 243, 6);
+}
+
+</style>
+</head>
+<body>
+  <div class="container">
+      <img src="/images/iconlogo.png" alt="logo" class="logo">
+      <img src="/images/food.jpg" alt="signup image" class="signup__img">
+      <div class="signup__content">
+          <form action="/signup" class="signup__form" method="POST">
+              <div>
+                  <h1 class="signup__title">
+                      <span>Sign Up</span>
+                  </h1>
+                  <p class="signup__description">
+                      Join Guni Food Hub now!
+                  </p>
+              </div>
+              
+              <div class="signup__inputs">
+                  <div>
+                      <label for="input-username" class="signup__label">User Name</label>
+                      <input type="text" placeholder="Enter your name" required class="signup__input" id="input-username" name="username">
+                      <span id="username-error-message" style="color: red;"></span> <!-- Added error message for username -->
+                  </div>
+
+                  <div>
+                      <label for="input-email" class="signup__label">Email</label>
+                      <input type="email" placeholder="Enter your email address" required class="signup__input" id="input-email" name="email">
+                      <span id="email-error-message" style="color: red;"></span>
+                  </div>
+
+                  <div>
+                      <label for="input-pass" class="signup__label">Password</label>
+
+                      <div class="signup__box">
+                          <input type="password" placeholder="Enter your password" required class="signup__input" id="input-pass" name="password">
+                          <i class="ri-eye-off-line signup__eye" id="input-icon"></i>
+                      </div>
+                  </div>
+
+                  <div>
+                      <label for="confirm-pass" class="signup__label">Confirm Password</label>
+                      <input type="password" placeholder="Confirm your password" required class="signup__input" id="confirm-pass">
+                      <span id="error-message" style="color: red;"></span>
+                  </div>
+
+                  <div class="signup__check">
+                      <input type="checkbox" class="signup__check-input" id="input-check" required>
+                      <label for="input-check" class="signup__check-label">I agree to the Terms and Conditions</label>
+                  </div>
+
+                  <button type="submit" class="signup__button">Sign Up</button>
+
+                  <div class="signup__login-link">
+                      <p>Already have an account? <a href="/login" style="color: rgb(239, 243, 6);">Log in</a></p>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+
+  <script>
+      const showHiddenPass = (inputPass, inputIcon) => {
+          const input = document.getElementById(inputPass),
+              iconEye = document.getElementById(inputIcon);
+
+          iconEye.addEventListener('click', () => {
+              if (input.type === 'password') {
+                  input.type = 'text';
+
+                  iconEye.classList.add('ri-eye-line');
+                  iconEye.classList.remove('ri-eye-off-line');
+              } else {
+                  input.type = 'password';
+
+                  iconEye.classList.remove('ri-eye-line');
+                  iconEye.classList.add('ri-eye-off-line');
+              }
+          });
+      };
+
+      showHiddenPass('input-pass', 'input-icon');
+
+      function validateForm() {
+          const password = document.getElementById("input-pass").value;
+          const confirmPassword = document.getElementById("confirm-pass").value;
+          const errorMessage = document.getElementById("error-message");
+
+          if (password !== confirmPassword) {
+              errorMessage.textContent = "Passwords do not match!";
+              return false;
+          } else {
+              errorMessage.textContent = "";
+              return true;
+          }
+      }
+
+      // Function to validate username to accept only alphabetical characters
+      function validateUsername() {
+        const usernameInput = document.getElementById("input-username");
+        const usernameErrorMessage = document.getElementById("username-error-message");
+        const usernameRegex = /^[a-zA-Z]+$/; // Regular expression to match only alphabetical characters
+
+        if (!usernameRegex.test(usernameInput.value)) {
+            usernameErrorMessage.textContent = "Username must contain only alphabetical characters!";
+            return false;
+        } else {
+            usernameErrorMessage.textContent = "";
+            return true;
+        }
+    }
+
+      async function submitForm(event) {
+          event.preventDefault();
+          //if (!validateForm()) return;
+          if (!validateForm() || !validateUsername()) return; // Added validation for username
+
+          const formData = new FormData(event.target);
+          const formObject = {};
+          formData.forEach((value, key) => {
+              formObject[key] = value;
+          });
+
+          try {
+              const response = await fetch('/signup', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(formObject)
+              });
+              const data = await response.json();
+              if (response.ok) {
+                  alert(data.message);
+                  window.location.href = '/login';
+              } else {
+                  // Show error message for existing email
+                  document.getElementById("email-error-message").textContent = data.error;
+              }
+          } catch (error) {
+              console.error('Error:', error);
+          }
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          const form = document.querySelector('.signup__form');
+          form.addEventListener('submit', submitForm);
+      });
+  </script>
+</body>
+</html>

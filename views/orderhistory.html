@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Guni Food Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #201f1f;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+        .logo img {
+            height: 50px;
+        }
+        .header-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .button-row {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 20px;
+        }
+        .button, .back-btn {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .button:hover, .back-btn:hover {
+            background-color: blue;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .status-pending {
+            background-color: yellow;
+            color: black;
+            padding: 5px;
+            width: 150px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .status-delivered {
+            background-color: green;
+            color: white;
+            padding: 5px;
+            width: 150px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/iconlogo.png" alt="GUNI Food Hub Logo">
+        </div>
+        <div class="header-title">
+            Order History
+        </div>
+    </header>
+    <div class="button-row">
+        <a href="/Dash" class="back-btn">Dashboard</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date and Time</th>
+                <th>Food Name</th>
+                <th>Order Status</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody id="orderHistoryTableBody">
+            <!-- Order history will be dynamically populated here -->
+        </tbody>
+    </table>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/orderHistory') // Changed endpoint to match the server route
+                .then(response => {
+                    if (response.status === 401) {
+                        window.location.href = '/login'; // Redirect to login if user is not authenticated
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.success) {
+                        console.error('Failed to fetch order history:', data.message);
+                        return;
+                    }
+                    
+                    const orders = data.orders;
+                    const orderHistoryTableBody = document.getElementById('orderHistoryTableBody');
+                    orderHistoryTableBody.innerHTML = '';
+                    orders.forEach(order => {
+                        const row = document.createElement('tr');
+                        const orderDate = new Date(order.order_datetime).toLocaleString();
+                        const foodNames = order.product_name.split(',').map(food => `<div>${food}</div>`).join('');
+                        let statusText = order.order_status;
+                        if (order.order_status === 'Pending') {
+                            statusText = `<div class="status-pending">${statusText}</div>`;
+                        } else if (order.order_status === 'Delivered') {
+                            statusText = `<div class="status-delivered">${statusText}</div>`;
+                        }
+                    
+                        // Format total payment to display two decimal places
+                        const formattedTotalPayment = parseFloat(order.total_payment).toFixed(2);
+                    
+                        row.innerHTML = `
+                            <td>${order.order_id}</td>
+                            <td>${orderDate}</td>
+                            <td>${foodNames}</td>
+                            <td>${statusText}</td>
+                            <td>${formattedTotalPayment}</td> <!-- Display formatted total payment -->
+                        `;
+                        orderHistoryTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching user order history:', error));
+        });
+    </script>
+    
+</body>
+</html>

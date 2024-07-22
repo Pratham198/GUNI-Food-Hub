@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1a1a1a 0%, #1a1a1a 50%, #3a3a3a 100%);
+            color: #fff;
+            /* White text color */
+            margin: 0;
+            padding: 0;
+            animation: animateBackground 20s infinite linear;
+        }
+
+        @keyframes animateBackground {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .header-options {
+            display: flex;
+            align-items: center;
+        }
+
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(238, 231, 231);
+            font-weight: bold;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .header-options {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        .header-options li {
+            margin-right: 20px;
+        }
+
+        .header-options img {
+            height: 1.5em;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content img {
+            margin-top: 80px;
+            max-width: 150px;
+            border-radius: 50%;
+        }
+
+        .content h1 {
+            margin-top: 10px;
+            color: orange;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .item {
+            margin: 20px;
+            text-align: center;
+            background-color: #333;
+            /* Item background color */
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+            /* Item lift on hover */
+        }
+
+        .item img {
+            max-width: 200px;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .item img:hover {
+            transform: scale(1.1);
+            /* Image zoom on hover */
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: orange;
+            /* Item name color */
+        }
+
+        .item-price {
+            margin: 5px 0;
+        }
+
+        .add-to-cart {
+            background-color: orange;
+            /* Add to cart button background color */
+            color: #fff;
+            /* Add to cart button text color */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: red;
+            /* Hover color change */
+        }
+
+        .quantity {
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 5px;
+            width: 50px;
+            /* Adjust width as needed */
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul {
+            position: absolute;
+            top: 18%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+        }
+
+        .navbar ul li {
+            list-style: none;
+        }
+
+        .navbar ul li a {
+            position: relative;
+            display: block;
+            text-transform: uppercase;
+            margin: 20px 0;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: orange;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.5s;
+            z-index: 1;
+        }
+
+        .navbar ul li a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-top: 2px solid orange;
+            border-bottom: 2px solid orange;
+            transform: scaley(2);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: orange;
+            transform: scale(0);
+            opacity: 0;
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .navbar ul li a:hover {
+            color: #ff0000;
+        }
+
+        .navbar ul li a:hover::before {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        .dashboard-btn {
+            position: absolute;
+            top: 20px;
+            /* Adjust as needed */
+            left: 20px;
+            /* Adjust as needed */
+            background-color: orange;
+            margin-top: 80px;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .dashboard-btn:hover {
+            background-color: red;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            /* Adding shadow on hover */
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            z-index: 9999;
+        }
+        /* Add the following CSS at the end of your existing styles */
+
+        /* Header and Navigation */
+        @media screen and (max-width: 768px) {
+            header {
+                padding: 10px;
+            }
+            .logo img {
+                height: 40px;
+            }
+            .header-options nav ul {
+                display: none;
+            }
+            .navbar ul {
+                top: 20%;
+            }
+        }
+
+        /* Content Alignment */
+        @media screen and (max-width: 768px) {
+            .content img {
+                margin-top: 40px;
+                max-width: 120px;
+            }
+            .content h1 {
+                margin-top: 5px;
+                font-size: 24px;
+            }
+        }
+
+        /* Menu Items */
+        @media screen and (max-width: 768px) {
+            .menu .item {
+                width: 45%;
+                margin: 10px;
+            }
+        }
+
+        /* Dashboard Button */
+        @media screen and (max-width: 768px) {
+            .dashboard-btn {
+                top: 10px;
+                left: 10px;
+            }
+        }
+
+    </style>
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                const response = await fetch('/api/bakery&cakeshop');
+                const data = await response.json();
+                renderFoodItems(data);
+            } catch (error) {
+                console.error('Error fetching food items:', error);
+            }
+        });
+    
+        function renderFoodItems(foodItems) {
+            const menuContainer = document.querySelector('.menu');
+            let foodItemsHtml = '';
+    
+            foodItems.forEach(foodItem => {
+                foodItemsHtml += `
+                    <div class="item">
+                        <img src="${foodItem.item_image}" alt="${foodItem.item_name}">
+                        <p class="item-name">${foodItem.item_name}</p>
+                        <p class="item-price">${foodItem.item_price} INR</p>
+                        <button class="add-to-cart">Add to Cart</button>
+                        <input class="quantity" type="number" min="1" value="1">
+                    </div>
+                `;
+            });
+    
+            menuContainer.innerHTML = foodItemsHtml;
+    
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+    
+        function addToCart() {
+            const itemName = this.parentNode.querySelector('.item-name').textContent;
+            const itemPrice = parseFloat(this.parentNode.querySelector('.item-price').textContent);
+            const quantity = parseInt(this.parentNode.querySelector('.quantity').value);
+            const itemImage = this.parentNode.querySelector('img').src;
+    
+            // Show popup message
+            const popup = document.querySelector('.popup');
+            if (popup) {
+                popup.style.display = 'block';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 2000);
+            } else {
+                console.error("Popup not found");
+            }
+    
+            const cartItem = {
+                name: itemName,
+                price: itemPrice,
+                quantity: quantity,
+                image: itemImage
+            };
+    
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push(cartItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        }
+    </script>
+    
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="\images\iconlogo.png" alt="GUNI Food Hub Logo">
+        </div>
+        <div class="header-options">
+           
+
+            <nav>
+                <ul>
+                    <li><a href="#Offers"><img src="\images\offers.jpg" alt="Offers Logo"> Offers</a></li>
+                    <li><a href="#Help">Help</a></li>
+                    <li><a href="/Cart"><img src="\images\cart.jpg" alt="Cart Logo"> Cart</a></li>
+                
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="navbar">
+        <ul>
+            <li><a href="/fastfood">FAST FOOD</a></li>
+            <li><a href="/southindianfood">SOUTH INDIAN FOOD</a></li>
+            <li><a href="/chinesefood">CHINESE FOOD</a></li>
+            <li><a href="/bakery&cakeshop">BAKERY & CAKE</a></li>
+        </ul>
+    </div>
+    <a href="/Dash"><button class="dashboard-btn"><h3>Dashboard</h3></button></a>
+
+    <div class="content">
+        <img src="\images\Bakery.jpg" alt="Shop Logo">
+        <h1>Bakery Shop</h1>
+    </div>
+
+    <main>
+        <h2 style="text-align: center;">Menu</h2>
+        <div class="menu">
+            <div class="item" id="food-items">
+                <!-- <img src="\images\cake.png" alt="Item 1">
+                <p class="item-name">Cake</p>
+                <p class="item-price">300 INR</p>
+                <button class="add-to-cart">Add to Cart</button>
+                <input class="quantity" type="number" min="1" value="1">
+            </div>
+            <div class="item">
+                <img src="\images\cream roll.jpg" alt="Item 2">
+                <p class="item-name">Cream Roll</p>
+                <p class="item-price">40 INR</p>
+                <button class="add-to-cart">Add to Cart</button>
+                <input class="quantity" type="number" min="1" value="1">
+            </div>
+            <div class="item">
+                <img src="\images\khari.png" alt="Item 3">
+                <p class="item-name">Khari</p>
+                <p class="item-price">60 INR</p>
+                <button class="add-to-cart">Add to Cart</button>
+                <input class="quantity" type="number" min="1" value="1">
+            </div> -->
+        </div>
+    </main>
+     <!-- Popup Message -->
+     <div class="popup">
+        Item added to cart!
+    </div>
+</body>
+
+</html>

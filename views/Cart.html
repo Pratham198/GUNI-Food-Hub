@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Cart - Guni Food Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+           /* background: linear-gradient(45deg, #FFC312, #EE5A24, #00a8ff, #f0932b);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;*/
+            background-image: url("/images/food.jpg");
+            background-size: cover; /* This will make sure the image covers the entire background */
+            background-repeat: no-repeat; /* This will prevent the image from repeating */
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-left: 575px;
+        }
+
+        .dashboard-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .dashboard-btn:hover {
+            background-color: red;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .cart-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-container:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 15px 0;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-info p {
+            font-size: 16px;
+            color: #777;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-quantity input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            margin: 0 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .cart-item-quantity button {
+            background-color: orange;
+            color: white;
+            border: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .cart-item-quantity button:hover {
+            background-color: red;
+        }
+
+        .cart-item-total {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .cart-total p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cart-total p span {
+            font-weight: bold;
+        }
+
+        .discount {
+            color: green;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .pay-now-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+            transition: background-color 0.3s;
+        }
+
+        .pay-now-btn:hover {
+            background-color: #218838;
+        }
+
+        .empty-cart {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .empty-cart h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                margin-left: 20px;
+            }
+
+            .dashboard-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 15px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="\images\iconlogo.png" alt="GUNI Food Hub Logo">
+            <a href="/Dash"><button class="dashboard-btn">Back</button></a>
+        </div>
+    </header>
+   
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+
+        <div id="cartItems">
+            <!-- Cart Items will be populated here -->
+        </div>
+
+        <div class="cart-total">
+            <p>Total Items: <span id="totalItems">0</span></p>
+            <p>Total Quantity: <span id="totalQuantity">0</span></p>
+            <p>Total Price: <span id="totalPrice">0.00 INR</span></p>
+           
+            <form id="payForm" action="/pay" method="post">
+                <input type="hidden" name="totalPrice" id="hiddenTotalPrice">
+                <!-- <input type="hidden" name="userId" value="<%= userId %>"> -->
+                <input type="hidden" name="userId" id="userId">
+                <button type="submit" class="pay-now-btn">Pay Now</button>
+            </form>
+            
+
+            <!-- <button class="pay-now-btn" onclick="window.location.href='/pay'; ">Pay Now</button> -->
+        </div>
+    </div>
+
+    <!-- Popup Message
+    <div class="popup">
+        Item added to cart!
+    </div> -->
+<!-- Display Cart Items -->
+<div id="cartItems"></div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+
+            fetch('/getUserId')
+            .then(response => response.json())
+            .then(data => {
+                if (data.userId) {
+                    document.getElementById('userId').value = data.userId;
+                } else {
+                    alert('User not authenticated');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching userId:', error);
+            });
+
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            const cartItemsDiv = document.getElementById('cartItems');
+            let totalPrice = 0;
+            let totalQuantity = 0;
+
+            cartItems.forEach(item => {
+                const cartItem = `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h3>${item.name}</h3>
+                            <p>Price: ${item.price.toFixed(2)} INR</p>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <input type="number" min="1" value="${item.quantity}" onchange="updateTotal(this, ${item.price})">
+                            <button onclick="deleteItem(this)">Delete</button>
+                        </div>
+                        <div class="cart-item-total">${(item.price * item.quantity).toFixed(2)} INR</div>
+                    </div>
+                `;
+
+                cartItemsDiv.innerHTML += cartItem;
+                totalPrice += item.price * item.quantity;
+                totalQuantity += item.quantity;
+            });
+
+            document.getElementById('totalItems').textContent = cartItems.length;
+            document.getElementById('totalQuantity').textContent = totalQuantity;
+            document.getElementById('totalPrice').textContent = `${totalPrice.toFixed(2)} INR`;
+        });
+
+        document.querySelector('.pay-now-btn').addEventListener('click', function() {
+            const totalPrice = document.getElementById('totalPrice').textContent;
+            document.getElementById('hiddenTotalPrice').value = totalPrice.replace(' INR', '');
+        });
+
+        function updateTotal(input, price) {
+            const quantity = input.value;
+            const total = (quantity * price).toFixed(2);
+            input.parentNode.nextElementSibling.textContent = `${total} INR`;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const itemTotals = document.querySelectorAll('.cart-item-total');
+            let totalPrice = 0;
+            let totalQuantity = 0;
+
+            itemTotals.forEach(item => {
+                const price = parseFloat(item.textContent.replace(' INR', ''));
+                const quantity = parseInt(item.previousElementSibling.querySelector('input[type="number"]').value);
+                totalPrice += price;
+                totalQuantity += quantity;
+            });
+
+            document.getElementById('totalQuantity').textContent = totalQuantity;
+            document.getElementById('totalPrice').textContent = `${totalPrice.toFixed(2)} INR`;
+        }
+
+        function deleteItem(button) {
+            const itemName = button.parentNode.previousElementSibling.querySelector('h3').textContent;
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            cartItems = cartItems.filter(item => item.name !== itemName);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            button.parentNode.parentNode.remove();
+            document.getElementById('totalItems').textContent = cartItems.length;
+            calculateTotal();
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+

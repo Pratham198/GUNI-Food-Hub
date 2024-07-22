@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+        * {
+            margin-top: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #1e1e1e; /* Dark background color */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 400px; /* Updated */
+            width: 100%; /* Added */
+            background: #333; /* Dark background color */
+            border-radius: 10px;
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5); /* Adjusted shadow color */
+            padding: 20px;
+        }
+
+        .center h1 {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #666; /* Adjusted border color */
+            color: orange; /* Text color */
+        }
+
+        .center form {
+            padding: 0 40px;
+            box-sizing: border-box;
+        }
+
+        form .txt_field {
+            position: relative;
+            border-bottom: 2px solid #adadad;
+            margin: 30px 0;
+        }
+
+        .txt_field input {
+            width: 100%;
+            padding: 0 5px;
+            height: 40px;
+            font-size: 16px;
+            border: none;
+            background: none;
+            outline: none;
+            color: #fff; /* Text color */
+        }
+
+        .txt_field label {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            color: #adadad;
+            transform: translateY(-50%);
+            font-size: 16px;
+            pointer-events: none;
+            transition: .5s;
+        }
+
+        .txt_field span::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: orange;
+            transition: .5s;
+        }
+
+        .txt_field input:focus~label,
+        .txt_field input:valid~label {
+            top: -5px;
+            color: orange;
+        }
+
+        .txt_field input:focus~span::before,
+        .txt_field input:valid~span::before {
+            width: 100%;
+        }
+
+        .pass {
+            margin: -5px 0 20px 5px;
+            color: #a6a6a6;
+            cursor: pointer;
+        }
+
+        .pass:hover {
+            text-decoration: underline;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            height: 50px;
+            border: 1px solid;
+            background: orangered;
+            border-radius: 25px;
+            font-size: 18px;
+            color: #e9f4fb;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+        }
+
+        input[type="submit"]:hover {
+            border-color: orangered;
+            transition: .5s;
+        }
+
+    
+        .logo {
+            position: absolute;
+            top: 8px;
+            left: 8%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: auto;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 10px; /* Adjusted margin */
+            color: #adadad;
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: orange;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <img class="logo" src="\images\iconlogo.png" alt="Logo">
+
+   
+</head>
+
+<body>
+    <div class="center">
+        <h1>Admin Login</h1>
+        <form method="post" action="/A_Login" onsubmit="return validateForm()">
+            <div class="txt_field">
+                <input type="text" id="username" name="username" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" id="password" name="password" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            
+            <input type="submit" value="Login">
+        </form>
+        
+    </div>
+
+</body>
+
+</html>

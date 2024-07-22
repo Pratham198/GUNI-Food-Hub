@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Food Item</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .logo img {
+      height: 40px;
+    }
+    
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    }
+    
+    .button-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+    }
+    
+    .button, .button-link, .back-btn {
+      background-color: #ff6600;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .button:hover, .button-link:hover, .back-btn:hover {
+      background-color: #e65c00;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      transform: translateY(-2px);
+    }
+    
+    .back-btn {
+      margin-right: auto;
+    }
+    
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px; /* Added padding for better responsiveness */
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin: 20px 0;
+      width: 100%;
+    }
+    
+    label {
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    textarea {
+      padding: 10px;
+      background-color: #444;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      width: 100%; /* Ensuring inputs take full width */
+    }
+    
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="file"]:focus,
+    textarea:focus {
+      outline: none;
+      box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3), 0 0 5px #ff6600;
+    }
+    
+    .button-row-bottom {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    
+    .popup.show {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 0 10px; /* Adjusted padding for smaller screens */
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="/images/iconlogo.png" alt="Logo">
+    </div>
+    <div class="title">Add Food Item</div>
+  </div>
+
+  <div class="button-row">
+    <a href="/A_Dash" class="back-btn">Dashboard</a>
+  </div>
+
+  <form id="foodForm" action="/addFoodItem" method="post" enctype="multipart/form-data">
+    <div class="form-container">
+      <div class="form-group">
+        <label for="shopId">Shop ID</label>
+        <input type="number" id="shopId" name="shopId" required>
+      </div>
+      <div class="form-group">
+        <label for="shopName">Shop Name</label>
+        <input type="text" id="shopName" name="shopName" required>
+      </div>
+      <div class="form-group">
+        <label for="itemName">Food Name</label>
+        <input type="text" id="itemName" name="itemName" required>
+      </div>
+      <div class="form-group">
+        <label for="foodPrice">Price</label>
+        <input type="number" step="0.01" id="foodPrice" name="foodPrice" required>
+      </div>
+      <div class="form-group">
+        <label for="foodPhoto">Food Photo</label>
+        <input type="file" id="foodPhoto" name="foodPhoto" accept="image/*" required>
+      </div>
+    </div>
+    <div class="button-row-bottom">
+      <button type="submit" class="button">Add</button>
+      <button type="button" class="button" onclick="window.history.back();">Cancel</button>
+    </div>
+  </form>
+
+  <div id="popup" class="popup">Item added!</div>
+
+  <!-- <script>
+    document.getElementById('foodForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        const foodName = document.getElementById('foodName').value;
+        const foodDescription = document.getElementById('foodDescription').value;
+        const foodPrice = document.getElementById('foodPrice').value;
+        const foodPhoto = document.getElementById('foodPhoto').files[0];
+        const shopIndex = new URLSearchParams(window.location.search).get('shopIndex');
+  
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const shops = JSON.parse(localStorage.getItem('shops')) || [];
+          if (shopIndex !== null) {
+            const shop = shops[shopIndex];
+            const newFoodItem = {
+              foodName: foodName,
+              foodDescription: foodDescription,
+              foodPrice: foodPrice,
+              foodPhoto: event.target.result
+            };
+            shop.foodItems = shop.foodItems || [];
+            shop.foodItems.push(newFoodItem);
+            localStorage.setItem('shops', JSON.stringify(shops));
+            
+            const popup = document.getElementById('popup');
+            popup.classList.add('show');
+            setTimeout(() => {
+              popup.classList.remove('show');
+              window.location.href = '/A_AllFood';
+            }, 1500);
+          }
+        };
+        reader.readAsDataURL(foodPhoto);
+      });
+      const formData = new FormData(this);
+
+        fetch('/addFoodItem', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Item added');
+                window.location.href = '/A_AllFood';
+                //document.getElementById('foodForm').reset(); // Reset the form after successful submission
+            } else {
+                alert('Failed to add item');
+            }
+        })
+        .catch(error => {
+            console.error('Error adding item:', error);
+            alert('Failed to add item');
+        });
+  </script> -->
+  <script>
+    document.getElementById('foodForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+  
+        const foodForm = document.getElementById('foodForm');
+        const formData = new FormData(foodForm);
+
+        fetch('/addFoodItem', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                const popup = document.getElementById('popup');
+                popup.classList.add('show');
+                setTimeout(() => {
+                  popup.classList.remove('show');
+                  window.location.href = '/A_AllFood';
+                }, 1500);
+            } else {
+                alert('Failed to add item');
+            }
+        })
+        .catch(error => {
+            console.error('Error adding item:', error);
+            alert('Failed to add item');
+        });
+    });
+  </script>
+</body>
+</html>

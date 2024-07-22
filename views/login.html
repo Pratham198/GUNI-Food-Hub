@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Page</title>
+
+    <style>
+
+        @charset "UTF-8";
+/*=============== GOOGLE FONTS ===============*/
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"); */
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(30, 100%, 50%);
+  --second-color: hsl(30, 100%, 35%);
+  --title-color: hsl(0, 0%, 100%);
+  --text-color: hsl(0, 0%, 100%);
+  --body-color: #111;
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+}
+@media screen and (min-width: 1024px) {
+  :root {
+    --h2-font-size: 1.75rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--body-color);
+  font-family: var(--body-font);
+  color: var(--text-color);
+}
+
+input,
+button {
+  font-family: var(--body-font);
+  border: none;
+  outline: none;
+}
+
+img {
+  max-width: auto;
+  height: auto;
+}
+
+/*=============== LOGIN FORM ===============*/
+
+.login__content, .login__form, .login__inputs {
+  display: grid;
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+}
+
+.login__img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1; /* Ensure the image is behind other content */
+  border-radius: 0 !important;
+}
+
+.login__content {
+  position: relative;
+  z-index: 1; /* Ensure the content is on top of the image */
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.logo {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 380px; /* Adjust as needed */
+  z-index: 1; /* Ensure the logo is above the background image */
+  width: 150px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+/* .login__content {
+  position: relative;
+  height: 100vh;
+  align-items: center;
+}
+.login__img {
+  align-items: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+} */
+.login__form {
+  position: relative;
+  background-color: #333;
+  border: 2px solid #444;
+  margin-inline: 1.5rem;
+  row-gap: 1.25rem;
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+.login__title {
+  color: var(--title-color);
+  font-size: var(--h2-font-size);
+  margin-bottom: 0.5rem;
+}
+.login__title span {
+  color: var(--first-color);
+}
+.login__description {
+  font-size: var(--small-font-size);
+}
+.login__inputs {
+  row-gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.login__label {
+  display: block;
+  color: var(--title-color);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  margin-bottom: 0.25rem;
+}
+.login__input {
+  width: 100%;
+  padding: 14px 12px;
+  border-radius: 6px;
+  border: 2px solid var(--text-color);
+  background-color: #444;
+  color: var(--title-color);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  transition: border 0.4s;
+}
+.login__input::placeholder {
+  color: var(--text-color);
+}
+.login__input:focus, .login__input:valid {
+  border: 2px solid var(--first-color);
+}
+.login__box {
+  position: relative;
+}
+.login__box .login__input {
+  padding-right: 36px;
+}
+.login__eye {
+  width: max-content;
+  height: max-content;
+  position: absolute;
+  right: 0.75rem;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.login__check {
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+.login__check-input {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text-color);
+  background-color: #444;
+  border-radius: 0.25rem;
+}
+.login__check-input:checked {
+  background: var(--first-color);
+}
+.login__check-input:checked::before {
+  content: "✔";
+  display: block;
+  color: #fff;
+  font-size: 0.75rem;
+  transform: translate(1.5px, -2.5px);
+}
+.login__check-label {
+  font-size: var(--small-font-size);
+}
+.login__buttons {
+  display: flex;
+  column-gap: 0.75rem;
+}
+.login__button {
+  width: 100%;
+  padding: 14px 2rem;
+  border-radius: 6px;
+  background: linear-gradient(180deg, var(--first-color), var(--second-color));
+  color: #fff;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-semi-bold);
+  box-shadow: 0 6px 24px hsla(30, 100%, 35%, 0.5);
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+.login__button-ghost {
+  background: #444;
+  border: 2px solid var(--first-color);
+  color: var(--first-color);
+  box-shadow: none;
+}
+.login__forgot {
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-semi-bold);
+  color: var(--first-color);
+  text-decoration: none;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 360px) {
+  .login__buttons {
+    flex-direction: column;
+  }
+}
+/* For medium devices */
+@media screen and (min-width: 576px) {
+  .login__form {
+    width: 450px;
+    justify-self: center;
+  }
+}
+/* For large devices */
+@media screen and (min-width: 1064px) {
+  .container {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  .login__content {
+    width: 1024px;
+    height: 600px;
+  }
+  .login__img {
+    border-radius: 3.5rem;
+    box-shadow: 0 24px 48px hsla(30, 100%, 20%, 0.45);
+  }
+  .login__form {
+    justify-self: flex-end;
+    margin-right: 4.5rem;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .login__content {
+    height: 700px;
+  }
+  .login__form {
+    row-gap: 2rem;
+    padding: 3rem;
+    border-radius: 1.25rem;
+    border: 2.5px solid #444;
+  }
+  .login__description, .login__label, .login__button {
+    font-size: var(--normal-font-size);
+  }
+  .login__inputs {
+    row-gap: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .login__input {
+    border: 2.5px solid var(--text-color);
+    padding: 1rem;
+    font-size: var(--small-font-size);
+  }
+  .login__input:focus, .login__input:valid {
+    border: 2.5px solid var(--first-color);
+  }
+  .login__button {
+    padding-block: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .login__button-ghost {
+    border: 2.5px solid var(--first-color);
+  }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="\images\iconlogo.png" alt="logo" class="logo">
+        <img src="\images\food.jpg" alt="login image" class="login__img">
+        <div class="login__content">
+          <div id="error-message" class="error-message"></div>
+          <form action="/login" class="login__form"  method="POST">
+            <div>
+                    <h1 class="login__title">
+                        <span>Login</span>
+                    </h1>
+                    <p class="login__description">
+                        Welcome! Please login to continue.
+                    </p>
+                </div>
+                
+                <div class="login__inputs">
+                    <div>
+                        <label for="input-email" class="login__label">Email</label>
+                        <input type="email" placeholder="Enter your email address" required class="login__input" id="input-email" name="email">
+                    </div>
+
+                    <div>
+                        <label for="input-pass" class="login__label">Password</label>
+
+                        <div class="login__box">
+                            <input type="password" placeholder="Enter your password" required class="login__input" id="input-pass" name="password">
+                            <i class="ri-eye-off-line login__eye" id="input-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login__check">
+                    <input type="checkbox" class="login__check-input" id="input-check">
+                    <label for="input-check" class="login__check-label">Remember me</label>
+                </div>
+
+                <div class="login__buttons">
+                    <button type="submit" class="login__button">Log In</button>
+                    <button class="login__button login__button-ghost" onclick="window.location.href='/signup'; ">Sign Up</button>
+                </div>
+
+                <a href="#" class="login__forgot">Forgot Password?</a>
+            </form>
+        </div>
+    </div>
+
+
+ <script>
+        /*=============== SHOW HIDDEN - PASSWORD ===============*/
+        const showHiddenPass = (inputPass, inputIcon) =>{
+            const input = document.getElementById(inputPass),
+                  iconEye = document.getElementById(inputIcon)
+                  
+            iconEye.addEventListener('click', () =>{
+                // Change password to text
+                if(input.type === 'password'){
+                    // Switch to text
+                    input.type = 'text'
+         
+                    // Add icon
+                    iconEye.classList.add('ri-eye-line')
+                    // Remove icon
+                    iconEye.classList.remove('ri-eye-off-line')
+                }else{
+                    // Change to password
+                    input.type = 'password'
+         
+                    // Remove icon
+                    iconEye.classList.remove('ri-eye-line')
+                    // Add icon
+                    iconEye.classList.add('ri-eye-off-line')
+                }
+            })
+         }
+         
+         showHiddenPass('input-pass','input-icon')
+
+      function validateLoginForm() {
+      // Get the email and password input values
+      const email = document.getElementById("input-email").value;
+      const password = document.getElementById("input-pass").value;
+      
+      // Check if email and password are not empty
+      if (email.trim() === '' || password.trim() === '') {
+          displayErrorMessage("Email and password are required.");
+          return false; // Prevent form submission
+      }
+      
+      // You can add more validation logic here if needed
+      
+      // If all validations pass, return true to allow form submission
+      return true;
+  }
+ 
+// Function to display error message
+function displayErrorMessage(message) {
+    const errorMessageElement = document.getElementById("error-message");
+    errorMessageElement.textContent = message;
+    errorMessageElement.style.display = "block"; // Show the error message
+}
+
+
+      
+    
+</script>
+</body>
+</html>
+
+
+
+

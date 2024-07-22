@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Guni Food Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #FFC312, #EE5A24, #00a8ff, #f0932b);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .header-options {
+            display: flex;
+            align-items: center;
+        }
+
+        
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: rgb(238, 231, 231);
+            font-weight: bold;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .header-options {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        .header-options li {
+            margin-right: 20px;
+        }
+
+        .header-options img {
+            height: 1.5em;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        .header-options .Profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .profile-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 30%;
+            background-color: #333333;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            padding: 20px;
+           /* border: 5px solid #ff0000;*/
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .profile-container.show {
+            transform: translateX(0%);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .profile-container ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .profile-container ul li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #a79672;
+        }
+
+        .profile-container ul li img {
+            margin-right: 15px;
+            height: 24px;
+        }
+
+        .profile-container ul li a {
+            text-decoration: none;
+            color: #000000;
+            transition: color 0.3s ease;
+        }
+
+        .profile-container ul li a:hover {
+            color: #ff0000;
+        }
+
+        .profile-box {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-box img {
+            height: 30px;
+            margin-bottom: 10px;
+        }
+
+        .profile-box p {
+            margin-top: 10px;
+        }
+
+        #logout-btn {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        #logout-btn:hover {
+            background-color: blue;
+        }
+
+        .profile-container button#back-btn {
+            background-color: #7dcfff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-container button#back-btn:hover {
+            background-color: blue;
+        }
+
+        .restaurant-section {
+            padding: 50px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .restaurant-section h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            text-align: center;
+        }
+
+        .restaurant-list {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .restaurant {
+            width: calc(25% - 20px);
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .restaurant:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .restaurant img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .restaurant .info {
+            padding: 20px;
+        }
+
+        .restaurant h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+            overflow-wrap: break-word;
+
+        }
+
+        .restaurant button {
+            padding: 10px 25px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .restaurant button:hover {
+            transform: scale(1.1);
+            background-color: blue;
+            box-shadow: 0 4px 15px rgba(0, 0, 255, 0.4);
+        }
+
+        .dimmed-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .profile-image-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-image-icon:hover::after {
+            content: "+";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #ff0000;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/iconlogo.png" alt="GUNI Food Hub Logo">
+        </div>
+        <div class="header-options">
+            
+            <nav>
+                <ul>
+                    <li><a href="#Offers"><img src="/images/offers.jpg" alt="Offers Logo"> Offers</a></li>
+                    <li><a href="#Help">Help</a></li>
+                    <li><a href="/Cart"><img src="/images/cart.jpg" alt="Cart Logo"> Cart</a></li>
+                    <li>
+                        <a href="#Profile" class="Profile">
+                            <img src="/images/profile1.jpg" alt="Profile Logo" onclick="toggleProfile()">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="profile-container" id="profileContainer">
+        <button id="back-btn" onclick="toggleProfile()">Back</button>
+        <img id="profileImg" src="/images/Profile_user.png" alt="Profile Logo" style="width: 80px; height: 80px; border-radius: 50%; margin: 20px auto; display: block;">
+        <h2><span id="usernamePlaceholder"></span></h2>
+        <ul>
+            <li class="profile-box"><img src="/images/order_icon.png" alt="Order Icon"><a href="/orderhistory">My Orders</a></li>
+            <li class="profile-box"><img src="/images/address_icon.png" alt="Address Icon"><a href="#">Address</a></li>
+            <li class="profile-box"><img src="/images/share_icon.png" alt="Share App Icon"><a href="#">Share App</a></li>
+            <li class="profile-box"><img src="/images/rate_icon.png" alt="Rate Us Icon"><a href="#">Rate Us</a></li>
+        </ul>
+        <a href="/"><button id="logout-btn" onclick="logout()">Logout</button></a>
+    </div>
+    <section class="restaurant-section">
+        <h1>Shops in GUNI Food Hub</h1>
+         <!-- <div class="restaurant">
+                <img src="\images\FastFood.jpg" alt="Restaurant 1">
+                <div class="info">
+                    <h2>Fast Food</h2>
+                    <a href="/fastfood"><button>Explore Menu</button></a>
+                </div>
+            </div>
+            <div class="restaurant">
+                <img src="\images\South Indian Food.jpg" alt="Restaurant 2">
+                <div class="info">
+                    <h2>South Indian Food</h2>
+                    <a href="/southfood"><button>Explore Menu</button></a>
+                </div>
+            </div>
+            <div class="restaurant">
+                <img src="\images\Chinese Food.jpg" alt="Restaurant 3">
+                <div class="info">
+                    <h2>Chinese Food</h2>
+                    <a href="/chinesefood"><button>Explore Menu</button></a>
+                </div>
+            </div>
+            <div class="restaurant">
+                <img src="\images\Bakery1.jpg" alt="Restaurant 4">
+                <div class="info">
+                    <h2>Bakery & Cake Shop</h2>
+                    <a href="/Bakery"><button>Explore Menu</button></a>
+                </div>
+            </div> -->
+        <div class="restaurant-list" id="shopList"></div>
+    </section>
+    <div class="dimmed-background" id="dimmedBackground"></div>
+    <script>
+        function toggleProfile() {
+            const profileContainer = document.getElementById("profileContainer");
+            profileContainer.classList.toggle("show");
+            const dimmedBackground = document.getElementById("dimmedBackground");
+            dimmedBackground.style.display = dimmedBackground.style.display === "block" ? "none" : "block";
+        }
+        function logout() {
+            alert("Logout successfully");
+        }
+        fetch('/getAllShops')
+            .then(response => response.json())
+            .then(shops => {
+                const shopList = document.getElementById('shopList');
+                shopList.innerHTML = ''; // Clear previous content
+                shops.forEach(shop => {
+                    if (!shop.slug) {
+                        shop.slug = shop.shopname.toLowerCase().replace(/ /g, '');
+                    }
+                    const shopDiv = document.createElement('div');
+                    shopDiv.classList.add('restaurant');
+                    shopDiv.innerHTML = `
+                        <img src="${shop.image}" alt="${shop.shopname}">
+                        <div class="info">
+                            <h2>${shop.shopname}</h2>
+                            <a href="/${shop.slug}"><button>Explore Menu</button></a>
+                        </div>
+                    `;
+                    shopList.appendChild(shopDiv);
+                });
+            })
+            .catch(error => console.error('Error fetching shops:', error));
+        fetch('/fetchUsername')
+            .then(response => response.json())
+            .then(data => {
+                const usernameElement = document.getElementById('usernamePlaceholder');
+                if (usernameElement) {
+                    usernameElement.innerText = 'Welcome, ' + data.username + '!';
+                }
+            })
+            .catch(error => console.error('Error fetching username:', error));
+    </script>
+</body>
+</html>
+    <!-- <script>
+        function toggleProfile() {
+            const profileContainer = document.getElementById("profileContainer");
+            profileContainer.classList.toggle("show");
+            
+            const dimmedBackground = document.getElementById("dimmedBackground");
+            dimmedBackground.style.display = dimmedBackground.style.display === "block" ? "none" : "block";
+        }
+    
+        function logout() {
+            alert("Logout successfully");
+        }
+
+        fetch('/getAllShops')
+        .then(response => response.json())
+        .then(shops => {
+            const shopList = document.getElementById('shopList');
+            shopList.innerHTML = ''; // Clear previous content
+
+            shops.forEach(shop => {
+                if (!shop.slug) {
+                    shop.slug = generateSlug(shop.shopname);
+                }
+
+                const shopDiv = document.createElement('div');
+                shopDiv.classList.add('restaurant');
+                shopDiv.innerHTML = `
+                    <img src="${shop.image}" alt="${shop.shopname}">
+                    <div class="info">
+                        <h2>${shop.shopname}</h2>
+                        <a href="/${shop.slug}"><button>Explore Menu</button></a>
+                    </div>
+                `;
+                shopList.appendChild(shopDiv);
+            });
+        })
+        .catch(error => console.error('Error fetching shops:', error));
+
+
+        fetch('/fetchUsername')
+            .then(response => response.json())
+            .then(data => {
+                const usernameElement = document.getElementById('usernamePlaceholder');
+                if (usernameElement) {
+                    usernameElement.innerText = 'Welcome, ' + data.username + '!';
+                }
+            })
+            .catch(error => console.error('Error fetching username:', error));
+    </script> -->
+    
+

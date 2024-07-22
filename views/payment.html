@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Process - Guni Food Hub</title>
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+        }
+
+        .logo {
+            text-align: left; /* Align the logo to the left */
+             margin-right: 2000px; /* Add some left margin to the logo */
+            }
+        
+        
+        .logo img {
+            height: 50px;
+            display: block;
+            margin: 0 auto; /* Center the logo horizontally */
+        }
+
+        .dashboard-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px; /* Position the button to the top right corner */
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 50px 50px 50px; /* Increased padding-top to increase the height */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+
+        .container img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        #totalPriceDisplay {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .payment-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: background-color 0.3s;
+        }
+
+        .payment-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* Popup Message */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .container {
+                max-width: 90%;
+            }
+        }
+
+    </style>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Process - Guni Food Hub</title>
+</head>
+<body>
+    <header>
+        <a href="/Cart">
+            <button class="dashboard-btn">Back</button>
+        </a>
+        <div class="logo">
+            <img src="/images/iconlogo.png" alt="GUNI Food Hub Logo">
+        </div>
+    </header>
+
+    <div class="container">
+        <img src="/images/qr.jpg" alt="QR Code">
+        <p>Total Price: <span id="totalPriceDisplay">0.00 INR</span></p>
+        <button class="payment-btn" onclick="paymentFailed()">Payment Failed</button>
+        <button class="payment-btn" onclick="paymentSuccess()">Payment Done</button>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const totalPrice = urlParams.get('totalPrice');
+            document.getElementById('totalPriceDisplay').textContent = `${totalPrice} INR`;
+        });
+
+        function paymentFailed() {
+            alert("Payment failed. Please try again later.");
+            window.location.href = '/Cart';
+        }
+
+        function paymentSuccess() {
+            alert("Payment successful! Your order has been confirmed.");
+            const totalPrice = document.getElementById('totalPriceDisplay').textContent.replace(' INR', '');
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const productNames = cartItems.map(item => item.name).join(', ');
+
+            fetch('/storeOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    totalPrice: totalPrice,
+                    productNames: productNames
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.removeItem('cartItems');
+                    window.location.href = '/Dash';
+                } else {
+                    alert('Failed to store order details. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

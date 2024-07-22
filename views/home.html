@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Guni Food Hub</title>
+  <style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'Noto Sans', sans-serif;
+    }
+    /*header*/
+    
+    header {
+      background-color: #333;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo img {
+      height: 60px;
+      margin-left:50px;
+    }
+    
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: rgb(238, 231, 231);
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    
+    nav ul li a:hover {
+      color: #ff0000;
+    }
+    
+    /*hero*/
+    
+    .hero {
+      background-image: url("/images/hero-background1.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+    
+    
+      text-align: left;
+      color: #fff;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      padding: 20px;
+      margin-top :50px;
+      margin-left: 4%;
+      
+    }
+    
+    .hero-content h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+    
+    .hero-content p {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: #ff0000;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #e60000;
+    }
+    
+    /*about*/
+    
+    .about {
+      display: flex;
+      align-items: center;
+      padding: 80px 0;
+    }
+    
+    .about-content {
+      flex: 1;
+      max-width: 600px;
+      padding-right: 50px;
+      color: #fff;
+      margin-left: 5%;
+      
+      
+    }
+    
+    .about h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    
+    .about p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    
+    .about-image {
+      max-width: 50%;
+      margin-right: 5%;
+    }
+    
+    .about-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    
+    .dark-theme {
+      background-color: #070e16;
+    }
+    
+    .about-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 3px solid transparent;
+      border-radius: 10px; /*Adjust the border radius as needed */
+      animation: borderAnimation 3s infinite linear;
+    }
+  
+    @keyframes borderAnimation {
+      0% {
+        border-color: red;
+        box-shadow: 0 0 10px red, 0 0 20px yellow;
+      }
+      50% {
+        border-color: yellow;
+        box-shadow: 0 0 10px yellow, 0 0 20px red;
+      }
+      100% {
+        border-color: red;
+        box-shadow: 0 0 10px red, 0 0 20px yellow;
+      }
+    }
+
+   
+    /* Contact Section*/
+    
+    .contact {
+      background-color: #333;
+      padding: 80px 0;
+      text-align: center;
+      color: #fff;
+    }
+    
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    
+    .contact-info {
+      display: grid;
+      justify-content: center;
+      margin-bottom: 40px;
+      
+    }
+    
+    .info-item {
+      margin: 0 20px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .info-item i {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+   
+    
+    /* Footer*/
+    
+    .footer {
+      background-color: #070e16;
+      padding: 40px 0;
+      color: #fff;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    
+    .footer-logo img {
+      max-width: 150px;
+    }
+    
+    .footer-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    
+    .footer-social a {
+      color: #fff;
+      margin: 0 5px;
+      text-decoration: none;
+    }
+    
+    .footer-text {
+      font-size: 14px;
+    }
+
+
+    /* Media Queries */
+    @media screen and (max-width: 1200px) {
+      /* Adjustments for large desktops */
+      /* For example, you can modify the layout, font sizes, etc. */
+      .hero-content, .about-content, .menu-item {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    
+      .about-image, .menu-item img {
+        max-width: 70%;
+      }
+    }
+
+    @media screen and (max-width: 992px) {
+      /* Adjustments for medium desktops and laptops */
+      /* For example, you can modify the layout, font sizes, etc. */
+      .hero-content, .about-content, .menu-item {
+        max-width: 90%;
+      }
+    
+      .about-image, .menu-item img {
+        max-width: 60%;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      /* Adjustments for tablets and smaller devices */
+      /* For example, you can modify the layout, font sizes, etc. */
+      .hero-content, .about-content, .menu-item {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .about-image, .menu-item img {
+        max-width: 80%;
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      /* Adjustments for mobile devices */
+      /* For example, you can modify the layout, font sizes, etc. */
+      .hero-content, .about-content, .menu-item {
+        padding: 10px;
+      }
+
+      .hero-content h1 {
+        font-size: 32px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+      }
+
+      .menu-item {
+        max-width: 90%;
+      }
+    }
+    
+    
+  </style>
+
+
+</head>
+
+<body>
+	<header>
+	  <div class="logo">
+		<img src="\images\iconlogo.png" alt="GUNI Food Hub Logo">
+	  </div>
+	  <nav>
+		<ul>
+		  <li><a href="#home">Home</a></li>
+		  <li><a href="#about">About</a></li>
+      <li><a href="/login">Login</a></li>
+		  <li><a href="#contact">Contact</a></li>
+          
+		</ul>
+	  </nav>
+	</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to GUNI Food Hub</h1>
+    <p>Experience the Taste of Perfection</p>
+    <a href="/login" class="btn">Order Now</a>
+  </div>
+</section>
+
+<section class="about dark-theme" id="about">
+  <div class="about-content">
+    <h2>About GUNI Food Hub </h2>
+    <p>Guni Food Hub, right here at Ganpat University, is the go-to spot for students and staff craving tasty eats. From yummy burgers to sweet treats, our menu has something for everyone, made with top-notch ingredients and served with a smile.</p>
+    <p>Whether you're grabbing a quick bite or chilling with pals, Guni Food Hub's got you covered with comfy vibes and great food. And ordering is a breeze on our website—just pick your favorites, click, and enjoy your meal delivered to you. Enjoy the ease of online dining with Guni Food Hub!</p>
+    <a href="/login"  class="btn">Explore Our Menu</a>
+  </div>
+  <div class="about-image">
+    <!-- <img src="D:/B.TECH_SEM-6/CAPSTONE PROJECT-II (CP-2)/Guni Food Hub/Photos/about-image.jpg" alt="About Image"> -->
+    <!-- <img src="D:\B.TECH_SEM-6\CAPSTONE PROJECT-II (CP-2)\Guni Food Hub\Photos\about-image.jpg" alt=""> -->
+    <img src="/images/about-image.jpg" alt="About Image" >
+  </div>
+</section>
+
+
+<section class="contact" id="contact">
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+      <div class="info-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <p>Address : GUNI Food Hub , Kherva(Ganpat University)</p>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-envelope"></i>
+        <p>Email id : gunifoodhub123@gmail.com</p>
+      </div>
+      <div class="info-item">
+        <i class="fas fa-phone-alt"></i>
+        <p>Number : +1 234 567 890</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <!-- <img src="D:\B.TECH_SEM-6\CAPSTONE PROJECT-II (CP-2)\Guni Food Hub\Photos\iconlogo.png" alt="Logo"> -->
+      <img src="/images/iconlogo.png" alt="Logo">
+    </div>
+    <nav class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="footer-social">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+  <p class="footer-text">&copy; 2024 GUNI Food Hub. All rights reserved.</p>
+</footer>
+
+
+</body>
